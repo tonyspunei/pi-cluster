@@ -23,6 +23,10 @@ spec:
           ports:
             - containerPort: 9090
 
+          envFrom:
+            - secretRef:
+                name: linkding-credentials
+
           securityContext:
             allowPrivilegeEscalation: false
 
