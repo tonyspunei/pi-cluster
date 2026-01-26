@@ -25,7 +25,7 @@ spec:
 
           envFrom:
             - secretRef:
-                name: linkding-credentials
+                name: linkding-container-env-secret
 
           securityContext:
             allowPrivilegeEscalation: false
