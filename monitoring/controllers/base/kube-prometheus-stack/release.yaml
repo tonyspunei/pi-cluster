@@ -28,3 +28,12 @@ spec:
   values:
     grafana:
       adminPassword: tony
+      ingress:
+        enabled: true
+        ingressClassName: traefik
+        hosts:
+          - grs.tonyspunei.dev
+        tls:
+          - secretName: grafana-tls-secret
+            hosts:
+              - grs.tonyspunei.dev
