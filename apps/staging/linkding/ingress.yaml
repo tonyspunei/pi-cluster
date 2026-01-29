@@ -15,3 +15,7 @@ spec:
                   number: 9090
             path: /
             pathType: Prefix
+  tls:
+    - secretName: linkding-tls-secret
+      hosts:
+        - lds.tonyspunei.dev
