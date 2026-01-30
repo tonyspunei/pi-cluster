@@ -18,6 +18,33 @@ spec:
           ports:
             - containerPort: 3005
 
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "2Gi"
+              cpu: "1000m"
+
+          volumeMounts:
+            - name: audiobookshelf-data
+              mountPath: /audiobooks
+              subPath: audiobooks
+            - name: audiobookshelf-data
+              mountPath: /podcasts
+              subPath: podcasts
+            - name: audiobookshelf-data
+              mountPath: /config
+              subPath: config
+            - name: audiobookshelf-data
+              mountPath: /metadata
+              subPath: metadata
+
           envFrom:
             - configMapRef:
                 name: audiobookshelf-configmap
+
+      volumes:
+        - name: audiobookshelf-data
+          persistentVolumeClaim:
+            claimName: audiobookshelf-data-pvc
