@@ -24,6 +24,7 @@ spec:
           image: ghcr.io/advplyr/audiobookshelf:2.32.1
           ports:
             - containerPort: 3005
+              protocol: TCP
 
           resources:
             requests:
