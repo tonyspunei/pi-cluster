@@ -4,7 +4,5 @@ metadata:
   name: audiobookshelf-configmap
   namespace: audiobookshelf
 data:
-  CONFIG_PATH: "/data/config"
-  METADATA_PATH: "/data/metadata"
   PORT: "3005"
   NODE_ENV: "production"

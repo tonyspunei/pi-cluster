@@ -7,10 +7,12 @@ spec:
   selector:
     matchLabels:
       app: audiobookshelf
+
   template:
     metadata:
       labels:
         app: audiobookshelf
+
     spec:
       securityContext:
         fsGroup: 1000 # node group ID
@@ -19,7 +21,7 @@ spec:
 
       containers:
         - name: audiobookshelf
-          image: advplyr/audiobookshelf:2.32.1
+          image: ghcr.io/advplyr/audiobookshelf:2.32.1
           ports:
             - containerPort: 3005
 
@@ -28,18 +30,28 @@ spec:
               memory: "512Mi"
               cpu: "250m"
             limits:
-              memory: "2Gi"
+              memory: "3Gi"
               cpu: "1000m"
-
-          volumeMounts:
-            - name: audiobookshelf-data
-              mountPath: /data
 
           envFrom:
             - configMapRef:
                 name: audiobookshelf-configmap
 
+          volumeMounts:
+            - mountPath: /config
+              name: audiobookshelf-config
+            - mountPath: /metadata
+              name: audiobookshelf-metadata
+            - mountPath: /audiobooks
+              name: audiobookshelf-audiobooks
+
       volumes:
-        - name: audiobookshelf-data
+        - name: audiobookshelf-config
           persistentVolumeClaim:
-            claimName: audiobookshelf-data-pvc
+            claimName: audiobookshelf-config
+        - name: audiobookshelf-metadata
+          persistentVolumeClaim:
+            claimName: audiobookshelf-metadata
+        - name: audiobookshelf-audiobooks
+          persistentVolumeClaim:
+            claimName: audiobookshelf-audiobooks
