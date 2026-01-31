@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: audiobookshelf
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: abs.tonyspunei.dev
+      http:
+        paths:
+          - backend:
+              service:
+                name: audiobookshelf
+                port:
+                  number: 3005
+            path: /
+            pathType: Prefix
+  tls:
+    - secretName: audiobookshelf-tls-secret
+      hosts:
+        - abs.tonyspunei.dev
