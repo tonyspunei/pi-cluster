@@ -32,8 +32,8 @@ spec:
         enabled: true
         ingressClassName: traefik
         hosts:
-          - grs.tonyspunei.dev
+          - grafana.tonyspunei.dev
         tls:
           - secretName: grafana-tls-secret
             hosts:
-              - grs.tonyspunei.dev
+              - grafana.tonyspunei.dev
