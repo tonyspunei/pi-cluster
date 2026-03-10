@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: handlesregister-db
+spec:
+  selector:
+    app: handlesregister-db
+  ports:
+    - port: 27017
+      targetPort: 27017

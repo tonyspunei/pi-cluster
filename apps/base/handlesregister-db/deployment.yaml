@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: handlesregister-db
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: handlesregister-db
+  template:
+    metadata:
+      labels:
+        app: handlesregister-db
+    spec:
+      securityContext:
+        fsGroup: 999
+      containers:
+        - name: handlesregister-db
+          image: mongo:7.0.30
+          args:
+            - --wiredTigerCacheSizeGB=0.25
+          ports:
+            - containerPort: 27017
+          envFrom:
+            - secretRef:
+                name: handlesregister-db-credentials
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "768Mi"
+              cpu: "500m"
+          volumeMounts:
+            - name: data
+              mountPath: /data/db
+          livenessProbe:
+            exec:
+              command:
+                - mongosh
+                - --eval
+                - "db.adminCommand('ping')"
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            exec:
+              command:
+                - mongosh
+                - --eval
+                - "db.adminCommand('ping')"
+            initialDelaySeconds: 5
+            periodSeconds: 5
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: handlesregister-db-data
