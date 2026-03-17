@@ -18,7 +18,7 @@ spec:
         fsGroup: 999
       containers:
         - name: handlesregister-db
-          image: mongo:7.0.30
+          image: mongo:7.0.31
           args:
             - --wiredTigerCacheSizeGB=0.25
           ports:
